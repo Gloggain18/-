@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SHIFT — магазин у Києві</title>
+<meta name="description" content="SHIFT — магазин одягу, кросівок та аксесуарів у Києві. Нові дропи щотижня, доставка по Україні.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b0d; --bg2:#141418; --card:#1a1a20; --line:#2a2a33;
+  --text:#f4f4f6; --muted:#9a9aa8; --accent:#c6ff3d; --accent2:#7b5cff;
+  --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{background:var(--bg);color:var(--text);font-family:Manrope,system-ui,sans-serif;line-height:1.5;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+h1,h2,h3,.logo{font-family:Unbounded,sans-serif;letter-spacing:-.02em}
+
+/* header */
+header{position:fixed;inset:0 0 auto 0;z-index:50;transition:.3s}
+header.scrolled{background:rgba(11,11,13,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font-weight:900;font-size:24px}
+.logo span{color:var(--accent)}
+.menu{display:flex;gap:32px;font-weight:600;color:var(--muted)}
+.menu a:hover{color:var(--text)}
+.nav-r{display:flex;gap:10px;align-items:center}
+.cart-btn{position:relative;padding:10px 18px;border:1px solid var(--line);border-radius:99px;font-weight:700}
+.cart-btn b{position:absolute;top:-6px;right:-6px;background:var(--accent);color:#000;font-size:12px;min-width:22px;height:22px;border-radius:99px;display:grid;place-items:center}
+.burger{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:50%}
+
+/* hero */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:72px}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;animation:float 12s ease-in-out infinite}
+.b1{width:520px;height:520px;background:var(--accent2);top:-120px;right:-120px}
+.b2{width:420px;height:420px;background:var(--accent);bottom:-160px;left:-100px;opacity:.25;animation-delay:-6s}
+@keyframes float{50%{transform:translate(-40px,40px) scale(1.1)}}
+.hero-in{position:relative;z-index:2}
+.tag{display:inline-flex;gap:8px;align-items:center;padding:8px 16px;border:1px solid var(--line);border-radius:99px;color:var(--muted);font-size:14px;margin-bottom:28px}
+.tag i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.3}}
+.hero h1{font-size:clamp(56px,13vw,190px);line-height:.9;font-weight:900}
+.hero h1 .o{color:#a08bff}
+.hero h1 .a{color:var(--accent)}
+.hero p{max-width:520px;color:var(--muted);font-size:18px;margin:28px 0 36px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{padding:18px 30px;border-radius:99px;font-weight:800;transition:.25s;display:inline-flex;gap:10px;align-items:center}
+.btn-a{background:var(--accent);color:#000}
+.btn-a:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(198,255,61,.35)}
+.btn-o{border:1px solid var(--line)}
+.btn-o:hover{border-color:var(--text)}
+.stats{display:flex;gap:48px;margin-top:64px;flex-wrap:wrap}
+.stats b{font-family:Unbounded;font-size:34px;display:block}
+.stats span{color:var(--muted);font-size:14px}
+
+/* marquee */
+.marquee{background:var(--accent);color:#000;padding:18px 0;overflow:hidden;transform:rotate(-2deg);margin:40px -20px}
+.track{display:flex;gap:40px;white-space:nowrap;animation:run 22s linear infinite;font-family:Unbounded;font-weight:900;font-size:28px}
+@keyframes run{to{transform:translateX(-50%)}}
+
+section{padding:110px 0}
+.sec-h{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:44px;flex-wrap:wrap}
+.sec-h h2{font-size:clamp(34px,5vw,64px);line-height:1}
+.sec-h p{color:var(--muted);max-width:380px}
+
+/* categories */
+.cats{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:260px 260px;gap:16px}
+.cat{border-radius:var(--radius);padding:28px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;transition:.35s;cursor:pointer}
+.cat:hover{transform:scale(.98)}
+.cat h3{font-size:28px;position:relative;z-index:2}
+.cat span{color:rgba(255,255,255,.7);position:relative;z-index:2}
+.cat .big{position:absolute;font-family:Unbounded;font-weight:900;font-size:180px;right:-20px;top:-40px;opacity:.15;line-height:1}
+.cat:nth-child(1){grid-row:span 2;background:linear-gradient(140deg,#7b5cff,#2b1b7a)}
+.cat:nth-child(2){background:linear-gradient(140deg,#ff5c8a,#7a1b3d)}
+.cat:nth-child(3){background:linear-gradient(140deg,#21c4a8,#0b5a4c)}
+.cat:nth-child(4){grid-column:span 2;background:linear-gradient(140deg,#c6ff3d,#5b7a12);color:#000}
+.cat:nth-child(4) span{color:rgba(0,0,0,.65)}
+
+/* catalog */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filters button{padding:10px 20px;border:1px solid var(--line);border-radius:99px;font-weight:700;color:var(--muted);transition:.2s}
+.filters button.on,.filters button:hover{background:var(--text);color:#000;border-color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.p{background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);transition:.3s;animation:in .5s both}
+@keyframes in{from{opacity:0;transform:translateY(20px)}}
+.p:hover{transform:translateY(-6px);border-color:#444}
+.p-img{aspect-ratio:1;display:grid;place-items:center;position:relative;overflow:hidden}
+.p-img svg{width:62%;transition:.5s;filter:drop-shadow(0 20px 25px rgba(0,0,0,.4))}
+.p:hover .p-img svg{transform:rotate(-8deg) scale(1.08)}
+.badge{position:absolute;top:14px;left:14px;background:#000;color:var(--accent);font-size:12px;font-weight:800;padding:5px 12px;border-radius:99px}
+.p-b{padding:18px}
+.p-b small{color:var(--muted)}
+.p-b h4{font-size:16px;margin:4px 0 14px}
+.p-f{display:flex;justify-content:space-between;align-items:center}
+.price{font-family:Unbounded;font-weight:700}
+.price s{color:var(--muted);font-size:13px;font-family:Manrope;margin-left:6px}
+.add{width:42px;height:42px;border-radius:50%;background:var(--text);color:#000;font-size:22px;font-weight:800;transition:.2s}
+.add:hover{background:var(--accent);transform:rotate(90deg)}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.f .ic{width:48px;height:48px;border-radius:14px;background:rgba(198,255,61,.12);color:var(--accent);display:grid;place-items:center;font-size:22px;margin-bottom:16px}
+.f h3{font-size:17px;margin-bottom:6px}
+.f p{color:var(--muted);font-size:14px}
+.about-t h2{font-size:clamp(34px,4.5vw,58px);line-height:1.05;margin-bottom:22px}
+.about-t p{color:var(--muted);margin-bottom:16px;font-size:17px}
+
+/* location */
+.loc{display:grid;grid-template-columns:1fr 1.3fr;gap:16px}
+.loc-card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:34px;display:flex;flex-direction:column;gap:22px}
+.row small{color:var(--muted);display:block;font-size:13px;text-transform:uppercase;letter-spacing:.1em}
+.row b{font-size:20px}
+.map{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);min-height:380px}
+.map iframe{width:100%;height:100%;min-height:380px;border:0;filter:grayscale(1) invert(.92) contrast(.9)}
+.soc{display:flex;gap:10px;flex-wrap:wrap}
+.soc a{padding:10px 18px;border:1px solid var(--line);border-radius:99px;font-weight:700}
+.soc a:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+
+/* cta */
+.cta{background:linear-gradient(120deg,var(--accent2),#ff5c8a);border-radius:32px;padding:64px;text-align:center;position:relative;overflow:hidden}
+.cta h2{font-size:clamp(30px,5vw,60px);line-height:1.05;margin-bottom:14px}
+.cta form{display:flex;gap:10px;max-width:520px;margin:28px auto 0}
+.cta input{flex:1;padding:18px 24px;border-radius:99px;border:0;font:inherit;background:rgba(0,0,0,.35);color:#fff}
+.cta input::placeholder{color:rgba(255,255,255,.7)}
+.cta .btn{background:#000;color:#fff}
+
+footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+/* drawer */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:.3s;z-index:90}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--bg2);z-index:100;transform:translateX(100%);transition:.4s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;border-left:1px solid var(--line)}
+.open .ov{opacity:1;pointer-events:auto}
+.open .drawer{transform:none}
+.d-h{display:flex;justify-content:space-between;align-items:center;padding:24px;border-bottom:1px solid var(--line)}
+.d-h h3{font-size:20px}
+.x{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);font-size:18px}
+.items{flex:1;overflow:auto;padding:16px 24px;display:flex;flex-direction:column;gap:12px}
+.it{display:flex;gap:14px;align-items:center;background:var(--card);padding:12px;border-radius:16px}
+.it .th{width:64px;height:64px;border-radius:12px;display:grid;place-items:center;flex-shrink:0}
+.it .th svg{width:70%}
+.it>div:not(.th){flex:1}
+.it h5{font-size:14px}
+.qty{display:flex;align-items:center;gap:10px;margin-top:6px}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line)}
+.empty{text-align:center;color:var(--muted);margin-top:60px}
+.d-f{padding:24px;border-top:1px solid var(--line)}
+.tot{display:flex;justify-content:space-between;font-size:18px;margin-bottom:16px}
+.tot b{font-family:Unbounded}
+.d-f .btn{width:100%;justify-content:center}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--accent);color:#000;padding:14px 24px;border-radius:99px;font-weight:800;z-index:200;transition:.4s}
+.toast.show{transform:translate(-50%,0)}
+
+.reveal{opacity:0;transform:translateY(40px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.reveal.vis{opacity:1;transform:none}
+
+/* responsive */
+@media (max-width:1000px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .about,.loc{grid-template-columns:1fr}
+  .cats{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .cat{min-height:200px}
+  .cat:nth-child(1){grid-row:auto;grid-column:span 2}
+}
+@media (max-width:720px){
+  .menu{display:none;position:fixed;top:72px;left:0;right:0;background:var(--bg);flex-direction:column;padding:24px 20px;gap:20px;font-size:20px;border-bottom:1px solid var(--line)}
+  .menu.show{display:flex}
+  .burger{display:grid;place-items:center}
+  .wrap{padding:0 16px}
+  section{padding:72px 0}
+  .stats{gap:28px}
+  .feat{grid-template-columns:1fr}
+  .cta{padding:40px 22px}
+  .cta form{flex-direction:column}
+  .cats{grid-template-columns:1fr}
+  .cat:nth-child(1),.cat:nth-child(4){grid-column:auto}
+  .grid{gap:10px}
+  .p-b{padding:12px}
+  .p-b h4{font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#" class="logo">SHIFT<span>.</span></a>
+    <nav class="menu" id="menu">
+      <a href="#catalog">Каталог</a>
+      <a href="#about">Про нас</a>
+      <a href="#location">Магазин</a>
+      <a href="#contacts">Контакти</a>
+    </nav>
+    <div class="nav-r">
+      <button class="cart-btn" id="cartOpen">Кошик <b id="cnt">0</b></button>
+      <button class="burger" id="burger" aria-label="Меню">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="wrap hero-in">
+    <div class="tag"><i></i> Новий дроп уже в магазині · Київ</div>
+    <h1>SHIFT<br><span class="o">YOUR</span> <span class="a">STYLE</span></h1>
+    <p>Одяг, кросівки та аксесуари, які змінюють правила. Оригінальні бренди, лімітовані релізи і доставка по Києву того ж дня.</p>
+    <div class="btns">
+      <a href="#catalog" class="btn btn-a">До каталогу →</a>
+      <a href="#location" class="btn btn-o">Як нас знайти</a>
+    </div>
+    <div class="stats">
+      <div><b data-n="12000">0</b><span>задоволених клієнтів</span></div>
+      <div><b data-n="350">0</b><span>моделей у наявності</span></div>
+      <div><b data-n="100">0</b><span>% оригінал</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee"><div class="track" id="track"></div></div>
+
+<section id="cats">
+  <div class="wrap">
+    <div class="sec-h reveal"><h2>Категорії</h2><p>Обирай свій вайб — від стрітвіру до базових речей на кожен день.</p></div>
+    <div class="cats reveal">
+      <div class="cat" data-f="sneakers"><div class="big">01</div><h3>Кросівки</h3><span>Nike, New Balance, Adidas</span></div>
+      <div class="cat" data-f="hoodie"><div class="big">02</div><h3>Худі</h3><span>Оверсайз та базові</span></div>
+      <div class="cat" data-f="tee"><div class="big">03</div><h3>Футболки</h3><span>Принти та мінімал</span></div>
+      <div class="cat" data-f="acc"><div class="big">04</div><h3>Аксесуари</h3><span>Кепки, сумки, шкарпетки</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="catalog" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-h reveal"><h2>Хіти продажу</h2><p>Найпопулярніші позиції цього тижня. Додавай у кошик і оформлюй замовлення за хвилину.</p></div>
+    <div class="filters" id="filters">
+      <button class="on" data-f="all">Усе</button>
+      <button data-f="sneakers">Кросівки</button>
+      <button data-f="hoodie">Худі</button>
+      <button data-f="tee">Футболки</button>
+      <button data-f="acc">Аксесуари</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="about-t reveal">
+      <h2>Ми — <span style="color:var(--accent)">SHIFT</span>. Магазин, де стиль перемикається.</h2>
+      <p>Ми відкрилися в Києві, щоб кожен міг знайти речі, які підкреслюють характер. Обираємо тільки оригінальні бренди і привозимо лімітовані релізи.</p>
+      <p>Приходь у шоурум приміряти, випити каву та поспілкуватися з командою — ми завжди допоможемо з розміром і образом.</p>
+    </div>
+    <div class="feat reveal">
+      <div class="f"><div class="ic">⚡</div><h3>Доставка за 2 години</h3><p>Кур'єром по Києву в день замовлення.</p></div>
+      <div class="f"><div class="ic">✓</div><h3>100% оригінал</h3><p>Працюємо напряму з офіційними дистриб'юторами.</p></div>
+      <div class="f"><div class="ic">↺</div><h3>Обмін 14 днів</h3><p>Не підійшов розмір — легко поміняємо.</p></div>
+      <div class="f"><div class="ic">★</div><h3>Бонусна програма</h3><p>Кешбек 5% з кожної покупки на наступні.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="location" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-h reveal"><h2>Шоурум у Києві</h2><p>Чекаємо на тебе щодня. Приміряй, обирай, забирай одразу.</p></div>
+    <div class="loc reveal">
+      <div class="loc-card" id="contacts">
+        <div class="row"><small>Адреса</small><b>м. Київ, вул. Хрещатик, 1</b></div>
+        <div class="row"><small>Графік</small><b>Щодня 10:00 — 21:00</b></div>
+        <div class="row"><small>Телефон</small><b><a href="tel:+380000000000">+38 (000) 000-00-00</a></b></div>
+        <div class="row"><small>Ми в соцмережах</small>
+          <div class="soc" style="margin-top:10px">
+            <a href="#" target="_blank" rel="noopener">Instagram</a>
+            <a href="#" target="_blank" rel="noopener">TikTok</a>
+            <a href="#" target="_blank" rel="noopener">Telegram</a>
+          </div>
+        </div>
+      </div>
+      <div class="map">
+        <iframe loading="lazy" title="Карта" src="https://www.openstreetmap.org/export/embed.html?bbox=30.505%2C50.440%2C30.540%2C50.460&amp;layer=mapnik&amp;marker=50.4501%2C30.5234"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta reveal">
+      <h2>-10% на першу покупку</h2>
+      <p>Підпишись і першим дізнавайся про нові дропи та закриті розпродажі.</p>
+      <form id="sub">
+        <input type="tel" placeholder="Твій номер телефону" required>
+        <button class="btn">Отримати знижку</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="logo">SHIFT<span style="color:var(--accent)">.</span></span>
+    <span>© <span id="yr"></span> SHIFT Store · Київ, Україна</span>
+  </div>
+</footer>
+
+<div id="cartRoot">
+  <div class="ov" id="ov"></div>
+  <aside class="drawer">
+    <div class="d-h"><h3>Кошик</h3><button class="x" id="cartClose">✕</button></div>
+    <div class="items" id="items"></div>
+    <div class="d-f">
+      <div class="tot"><span>Разом</span><b id="sum">0 ₴</b></div>
+      <button class="btn btn-a" id="checkout">Оформити замовлення</button>
+    </div>
+  </aside>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== ТОВАРИ: редагуйте цей список під свій асортимент =====
+const PRODUCTS = [
+  {id:1,cat:'sneakers',brand:'Nike',name:'Air Force 1 Low White',price:4299,old:4999,c:['#e9e9ef','#9a9ab0'],badge:'HIT'},
+  {id:2,cat:'sneakers',brand:'New Balance',name:'550 Green / White',price:5199,c:['#c8f0d0','#3c8a52'],badge:'NEW'},
+  {id:3,cat:'hoodie',brand:'SHIFT',name:'Oversize Hoodie Black',price:2199,c:['#7b5cff','#2b1b7a']},
+  {id:4,cat:'tee',brand:'SHIFT',name:'Tee "Kyiv Never Sleeps"',price:899,c:['#ff5c8a','#7a1b3d'],badge:'NEW'},
+  {id:5,cat:'acc',brand:'SHIFT',name:'Кепка Logo Lime',price:699,c:['#c6ff3d','#5b7a12']},
+  {id:6,cat:'sneakers',brand:'Adidas',name:'Samba OG Black',price:4599,old:5299,c:['#ffb35c','#8a4a12'],badge:'-13%'},
+  {id:7,cat:'hoodie',brand:'Carhartt',name:'Chase Hoodie Grey',price:3499,c:['#21c4a8','#0b5a4c']},
+  {id:8,cat:'acc',brand:'SHIFT',name:'Шопер Canvas',price:549,c:['#5cc8ff','#124a7a']},
+  {id:9,cat:'tee',brand:'Stüssy',name:'Basic Tee White',price:1799,c:['#f0e0c8','#8a6a3c']},
+  {id:10,cat:'sneakers',brand:'Nike',name:'Dunk Low Panda',price:4899,c:['#d0d0d8','#2a2a33'],badge:'HIT'},
+  {id:11,cat:'hoodie',brand:'SHIFT',name:'Zip Hoodie Lime',price:2499,c:['#c6ff3d','#3c5a0b']},
+  {id:12,cat:'acc',brand:'SHIFT',name:'Шкарпетки (3 пари)',price:349,c:['#ff5c5c','#7a1212']},
+];
+// ============================================================
+
+const ICONS = {
+  sneakers:'<svg viewBox="0 0 100 60"><path d="M5 42c0-8 4-14 10-16l18-12c4-3 8-2 10 2l4 8c3 5 9 7 15 8l20 3c8 1 13 6 13 13v4H5z" fill="#fff"/><path d="M5 50h90v6H5z" fill="#222"/><path d="M30 22l6 8M38 17l6 8" stroke="#222" stroke-width="3"/></svg>',
+  hoodie:'<svg viewBox="0 0 100 100"><path d="M35 10c3 10 27 10 30 0l20 10 12 40-14 5-5-20v50H22V45l-5 20-14-5 12-40z" fill="#fff"/><path d="M40 12c2 14 18 14 20 0" stroke="#222" stroke-width="3" fill="none"/><rect x="35" y="65" width="30" height="14" rx="4" fill="#ddd"/></svg>',
+  tee:'<svg viewBox="0 0 100 100"><path d="M35 12c4 8 26 8 30 0l28 12-8 18-12-5v53H27V37l-12 5-8-18z" fill="#fff"/><text x="50" y="62" font-size="11" font-family="Unbounded,sans-serif" font-weight="900" text-anchor="middle" fill="#222">SHIFT</text></svg>',
+  acc:'<svg viewBox="0 0 100 70"><path d="M15 45c0-22 15-35 35-35s35 13 35 35z" fill="#fff"/><path d="M10 45h85c0 6-10 10-30 10H10z" fill="#ddd"/><circle cx="50" cy="12" r="4" fill="#222"/></svg>'
+};
+const fmt = n => n.toLocaleString('uk-UA') + ' ₴';
+const $ = s => document.querySelector(s);
+
+// catalog
+function render(f='all'){
+  $('#grid').innerHTML = PRODUCTS.filter(p=>f==='all'||p.cat===f).map((p,i)=>`
+    <div class="p" style="animation-delay:${i*.05}s">
+      <div class="p-img" style="background:linear-gradient(140deg,${p.c[0]},${p.c[1]})">
+        ${p.badge?`<span class="badge">${p.badge}</span>`:''}${ICONS[p.cat]}
+      </div>
+      <div class="p-b"><small>${p.brand}</small><h4>${p.name}</h4>
+        <div class="p-f"><span class="price">${fmt(p.price)}${p.old?`<s>${fmt(p.old)}</s>`:''}</span>
+        <button class="add" data-id="${p.id}" aria-label="Додати">+</button></div>
+      </div>
+    </div>`).join('');
+}
+function setFilter(f){
+  document.querySelectorAll('#filters button').forEach(b=>b.classList.toggle('on',b.dataset.f===f));
+  render(f);
+}
+$('#filters').onclick = e => e.target.dataset.f && setFilter(e.target.dataset.f);
+document.querySelectorAll('.cat').forEach(c=>c.onclick=()=>{setFilter(c.dataset.f);$('#catalog').scrollIntoView()});
+
+// cart
+let cart = {};
+try{ cart = JSON.parse(localStorage.getItem('shift-cart')) || {} }catch(e){}
+const save = () => { try{localStorage.setItem('shift-cart',JSON.stringify(cart))}catch(e){} };
+function drawCart(){
+  const ids = Object.keys(cart);
+  let total=0, count=0;
+  $('#items').innerHTML = ids.length ? ids.map(id=>{
+    const p = PRODUCTS.find(x=>x.id==id), q = cart[id];
+    total += p.price*q; count += q;
+    return `<div class="it"><div class="th" style="background:linear-gradient(140deg,${p.c[0]},${p.c[1]})">${ICONS[p.cat]}</div>
+      <div><h5>${p.name}</h5><div class="qty"><button data-d="${id}">−</button>${q}<button data-i="${id}">+</button></div></div>
+      <b>${fmt(p.price*q)}</b></div>`;
+  }).join('') : '<p class="empty">Кошик порожній 🛒<br>Додай щось стильне</p>';
+  $('#sum').textContent = fmt(total);
+  $('#cnt').textContent = count;
+  save();
+}
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2200)}
+$('#grid').onclick = e => { const id=e.target.dataset.id; if(!id)return; cart[id]=(cart[id]||0)+1; drawCart(); toast('Додано в кошик ✓'); };
+$('#items').onclick = e => {
+  const {i,d} = e.target.dataset;
+  if(i) cart[i]++;
+  if(d){ cart[d]--; if(cart[d]<=0) delete cart[d]; }
+  drawCart();
+};
+const toggleCart = o => $('#cartRoot').classList.toggle('open',o);
+$('#cartOpen').onclick=()=>toggleCart(true);
+$('#cartClose').onclick=$('#ov').onclick=()=>toggleCart(false);
+$('#checkout').onclick=()=>{
+  if(!Object.keys(cart).length) return toast('Кошик порожній');
+  cart={}; drawCart(); toggleCart(false); toast("Дякуємо! Менеджер зв'яжеться з вами 💚");
+};
+$('#sub').onsubmit=e=>{e.preventDefault();e.target.reset();toast('Знижку надіслано на ваш номер 🎉')};
+
+// header, menu, marquee, counters, reveal
+addEventListener('scroll',()=>$('#hdr').classList.toggle('scrolled',scrollY>20));
+$('#burger').onclick=()=>$('#menu').classList.toggle('show');
+$('#menu').onclick=()=>$('#menu').classList.remove('show');
+const words='NEW DROP ✦ SHIFT STORE ✦ KYIV ✦ ORIGINAL ONLY ✦ FREE DELIVERY ✦ ';
+$('#track').innerHTML=`<span>${words.repeat(4)}</span><span>${words.repeat(4)}</span>`;
+$('#yr').textContent=new Date().getFullYear();
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('[data-n]').forEach(el=>{
+  const n=+el.dataset.n, t0=performance.now();
+  (function step(t){const k=Math.min((t-t0)/1800,1);el.textContent=Math.round(n*(1-Math.pow(1-k,3))).toLocaleString('uk-UA')+(k===1&&n>=1000?'+':'');if(k<1)requestAnimationFrame(step)})(t0);
+});
+
+render(); drawCart();
+</script>
+</body>
+</html>
