@@ -12,21 +12,15 @@
 <style>
 /* Layout: keyboard metaphor. Controls are keycaps that physically press; the page "shifts" (Shift key / ⇧ button) into caps mode with swapped accents. */
 :root{
-  --bg:#e3e5ea; --surface:#f4f5f7; --ink:#0d0e12; --muted:#5a5f6c; --line:#c7cad2;
-  --key:#fbfbfc; --key-edge:#aeb2bd; --cobalt:#2236f0; --signal:#ff4f17; --on-accent:#ffffff;
-  --ok:#14a35a; --bad:#d23a2a;
+  --bg:#1a3cff; --surface:#1432e8; --ink:#ffffff; --muted:#cdd5ff; --line:#ffffff;
+  --key:#ffffff; --key-hover:#e8ecff; --key-ink:#1a3cff; --key-edge:#0a1a8f;
+  --cobalt:#ff3da5; --signal:#ff9fd6; --on-accent:#ffffff;
+  --ok:#5cf2a0; --bad:#ffd0e6; --shadow:color-mix(in srgb,#000a4d 55%,transparent);
+  color-scheme:dark;
   --display:"Dela Gothic One","Arial Black",Impact,sans-serif;
   --body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0e0f13; --surface:#17191f; --ink:#eef0f4; --muted:#949aa8; --line:#2a2d36;
-  --key:#23262e; --key-edge:#050608; --cobalt:#6c7bff; --signal:#ff6a3a; --on-accent:#0b0c10;
-  --ok:#3fd17f; --bad:#ff6b5b; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0e0f13; --surface:#17191f; --ink:#eef0f4; --muted:#949aa8; --line:#2a2d36;
-  --key:#23262e; --key-edge:#050608; --cobalt:#6c7bff; --signal:#ff6a3a; --on-accent:#0b0c10;
-  --ok:#3fd17f; --bad:#ff6b5b; color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:clip}
@@ -34,6 +28,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--bod
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
 a{color:inherit}
 button,input,select{font:inherit;color:inherit}
+input,select{color:var(--key-ink)}
 button{cursor:pointer}
 :focus-visible{outline:3px solid var(--cobalt);outline-offset:3px;border-radius:6px}
 h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spacing:-.01em;text-wrap:balance;margin:0}
@@ -47,14 +42,14 @@ body.shifted .acc-a{color:var(--signal)}
 body.shifted .acc-b{color:var(--cobalt)}
 
 /* keycap */
-.key{appearance:none;border:1px solid var(--line);background:var(--key);border-radius:12px;padding:10px 16px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+.key{appearance:none;border:1px solid var(--key);background:var(--key);color:var(--key-ink);border-radius:12px;padding:10px 16px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
   box-shadow:0 5px 0 var(--key-edge);transform:translateY(0);transition:transform .08s,box-shadow .08s,background .2s,color .2s}
-.key:hover{background:var(--surface)}
+.key:hover{background:var(--key-hover)}
 .key:active,.key.down{transform:translateY(4px);box-shadow:0 1px 0 var(--key-edge)}
-.key.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.key.on{background:var(--cobalt);color:var(--on-accent);border-color:var(--cobalt)}
 .key.solid{background:var(--cobalt);color:var(--on-accent);border-color:transparent}
 .key.solid:hover{filter:brightness(1.08)}
-body.shifted .key.solid{background:var(--signal)}
+body.shifted .key.solid{background:var(--signal);color:var(--key-ink)}
 
 /* header */
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
@@ -68,7 +63,7 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:co
 .dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0}
 .status.open .dot{background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 25%,transparent)}
 .status.closed .dot{background:var(--bad)}
-.cart-btn b{min-width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:var(--signal);color:var(--on-accent);font:700 12px var(--mono)}
+.cart-btn b{min-width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:var(--cobalt);color:var(--on-accent);font:700 12px var(--mono)}
 
 /* hero */
 .hero{padding-block:56px 64px;display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:end}
@@ -93,7 +88,7 @@ body.shifted .caps-state{border-color:var(--signal);color:var(--signal)}
 .timer small{font:500 11px var(--mono);opacity:.6;text-transform:uppercase;letter-spacing:.08em}
 .drop-art{height:150px;display:grid;place-items:center;border-radius:14px;background:repeating-linear-gradient(-45deg,transparent 0 10px,color-mix(in srgb,var(--bg) 8%,transparent) 10px 11px)}
 .drop-art svg{width:72%;max-width:260px;--stroke:var(--bg)}
-.drop .key{background:var(--signal);color:var(--on-accent);border:0;box-shadow:0 5px 0 color-mix(in srgb,var(--signal) 45%,#000)}
+.drop .key{background:var(--cobalt);color:var(--on-accent);border:0;box-shadow:0 5px 0 color-mix(in srgb,var(--signal) 45%,#000)}
 
 /* ticker */
 .ticker{border-block:1px solid var(--line);overflow:hidden;background:var(--surface)}
@@ -116,13 +111,13 @@ section.tight{padding-top:0}
 select{background:var(--key);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
-.card:hover{box-shadow:0 18px 40px -18px color-mix(in srgb,var(--ink) 40%,transparent)}
+.card:hover{box-shadow:0 18px 40px -18px var(--shadow)}
 .tile{position:relative;aspect-ratio:1/1;max-width:100%;display:grid;place-items:center;border:0;background:var(--bg);padding:0;width:100%;overflow:hidden;border-radius:0}
 .tile svg{width:68%;transition:transform .45s cubic-bezier(.2,.8,.2,1);--stroke:var(--ink)}
 .card:hover .tile svg{transform:translateY(-6px) rotate(-6deg) scale(1.05)}
 .sku{position:absolute;right:12px;bottom:10px;font:500 11px var(--mono);color:var(--muted)}
 .badge{position:absolute;top:12px;left:12px;font:700 11px var(--mono);letter-spacing:.06em;padding:5px 9px;border-radius:7px;background:var(--ink);color:var(--bg)}
-.badge.sale{background:var(--signal);color:var(--on-accent)}
+.badge.sale{background:var(--signal);color:var(--key-ink)}
 .badge.new{background:var(--cobalt);color:var(--on-accent)}
 .card-b{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1}
 .brand{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -162,12 +157,12 @@ tr.hit{background:color-mix(in srgb,var(--signal) 18%,transparent)}
 .room{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
 .room > *{min-width:0}
 .room-main{background:var(--cobalt);color:var(--on-accent);border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:20px;transition:background .3s}
-body.shifted .room-main{background:var(--signal)}
+
 .room-main h3{font-size:clamp(28px,3.6vw,46px)}
 .room-main .mono{opacity:.8}
 .room-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
 .room-actions .key{background:var(--on-accent);color:var(--cobalt);border:0;box-shadow:0 5px 0 color-mix(in srgb,var(--on-accent) 55%,#000)}
-body.shifted .room-actions .key{color:var(--signal)}
+
 .hours{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:4px}
 .hours h3{font-size:24px;margin-bottom:10px}
 .hrow{display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:10px}
@@ -452,14 +447,14 @@ const P = [
   {id:1, cat:'sneakers', brand:'Nike', name:'Air Force 1 \'07 White', price:4299, old:4999, color:'#f6f6f4', badge:'sale', sold:[40,45], pop:10},
   {id:2, cat:'sneakers', brand:'New Balance', name:'550 White / Green', price:5199, color:'#cfe8d3', badge:'new', sold:[41], pop:9},
   {id:3, cat:'hoodie', brand:'SHIFT Basics', name:'Худі Oversize 480 г', price:2199, color:'#2b2d33', sold:[], pop:8},
-  {id:4, cat:'tee', brand:'SHIFT Basics', name:'Футболка «Київ не спить»', price:899, color:'#ff4f17', badge:'new', sold:['S'], pop:7},
+  {id:4, cat:'tee', brand:'SHIFT Basics', name:'Футболка «Київ не спить»', price:899, color:'#ff3da5', badge:'new', sold:['S'], pop:7},
   {id:5, cat:'acc', brand:'SHIFT Basics', name:'Кепка 6-panel Cobalt', price:699, color:'#2236f0', sold:[], pop:6},
   {id:6, cat:'sneakers', brand:'Adidas', name:'Samba OG Black', price:4599, old:5299, color:'#1d1e22', badge:'sale', sold:[44], pop:9.5},
   {id:7, cat:'hoodie', brand:'Carhartt WIP', name:'Hooded Chase Sweat Grey', price:3499, color:'#9a9ea8', sold:['XL'], pop:7.5},
   {id:8, cat:'acc', brand:'SHIFT Basics', name:'Кепка Washed Sand', price:549, color:'#e8dcc4', sold:[], pop:5},
   {id:9, cat:'tee', brand:'Stüssy', name:'Basic Stock Tee White', price:1799, color:'#ffffff', sold:['M'], pop:6.5},
   {id:10,cat:'sneakers', brand:'Nike', name:'Dunk Low «Panda»', price:4899, color:'#eeeeee', badge:'hit', sold:[42,43], pop:9.8},
-  {id:11,cat:'hoodie', brand:'SHIFT Basics', name:'Зіп-худі Signal', price:2499, color:'#ff7a45', sold:[], pop:6},
+  {id:11,cat:'hoodie', brand:'SHIFT Basics', name:'Зіп-худі Signal', price:2499, color:'#ff9fd6', sold:[], pop:6},
   {id:12,cat:'sneakers', brand:'Salomon', name:'XT-6 Black / Phantom', price:7499, color:'#3a3d45', badge:'new', sold:[40], pop:8.5},
 ];
 const SIZES = {sneakers:[40,41,42,43,44,45], hoodie:['S','M','L','XL'], tee:['S','M','L','XL'], acc:['One size']};
