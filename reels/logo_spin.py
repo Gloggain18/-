@@ -17,6 +17,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 W, H, FPS = 1080, 1920, 30
 LOGO = 760          # размер логотипа на экране
+ZOOM = 1.08
 RIM = 9             # толщина белого ободка
 rng = np.random.default_rng(7)
 
@@ -81,10 +82,12 @@ def load_bg(kind):
     if kind == "black":
         return Image.new("RGBA", (W, H), (0, 0, 0, 255)), None
     im = Image.open(kind).convert("RGBA")
-    s = max(W / im.width, H / im.height)
+    s = max(W / im.width, H / im.height) * ZOOM
     im = im.resize((int(im.width * s), int(im.height * s)), Image.LANCZOS)
-    l, t = (im.width - W) // 2, (im.height - H) // 2
-    return im.crop((l, t, l + W, t + H)), None
+    if s > 3:   # маленькое фото — делаем мягкое «боке», как размытый фон камеры
+        im = im.filter(ImageFilter.GaussianBlur(10))
+    im = Image.eval(im.convert("RGB"), lambda p: int(p * 0.72)).convert("RGBA")
+    return im, "photo"
 
 
 # ---------- логотип -> стеклянный с белым ободком ----------
@@ -149,8 +152,14 @@ def build(logo_paths, bg_kind, per):
         canvas.alpha_composite(sh.filter(ImageFilter.GaussianBlur(20)), (0, cy + img.height // 2 + 40))
 
     def frame(t):
-        canvas = bg.copy()
-        if fog is not None:                         # туман плывёт ровно на 1 ширину за цикл
+        if fog == "photo":                          # медленный наплыв камеры (зациклен)
+            z = 1 + (ZOOM - 1) * (0.5 - 0.5 * np.cos(2 * np.pi * t / total))
+            cw, ch = int(bg.width / z), int(bg.height / z)
+            l, tp = (bg.width - cw) // 2, (bg.height - ch) // 2
+            canvas = bg.crop((l, tp, l + cw, tp + ch)).resize((W, H), Image.BILINEAR)
+        else:
+            canvas = bg.copy()
+        if fog is not None and fog != "photo":                         # туман плывёт ровно на 1 ширину за цикл
             off = int((t / total) * W * 2) % (W * 2)
             strip = fog.crop((off, 0, off + W, H)) if off + W <= W * 2 else \
                 Image.fromarray(np.hstack([np.array(fog)[:, off:], np.array(fog)[:, :off + W - W * 2]]), "RGBA")
